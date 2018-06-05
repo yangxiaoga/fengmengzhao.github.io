@@ -1,15 +1,15 @@
-title:             冯兄话吉
-email:             fengmengzhao@gmail.com
-description:       『格物致知，不可私享；冯兄话吉，载文传享』
-author:             冯兄
+title:             杨小嘎
+email:             18812668537@163.com
+description:       『不努力的杨小嘎』
+author:             嘎
 #baseurl:           "/startbootstrap-clean-blog-jekyll"
 baseurl:           ""
-url:               "http://fengmengzhao.github.io"
+url:               "http://yangxiaoga.github.io"
 
 # Social Profiles
-twitter_username:  #fengmengzhao
-github_username:   FengMengZhao
-facebook_username: #fengmengzhao
+twitter_username:  #yangxiaoga
+github_username:   yangxiaoga
+facebook_username: #yangxiaoga
 
 # 百度统计
 analytics:
