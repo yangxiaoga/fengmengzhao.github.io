@@ -2,7 +2,7 @@
 layout: post
 title: markdown学习初步
 subtitle: markdown语法
-background: '/img/posts/markdown20180605.jpg'
+background: '/img/posts/markdown.png'
 comment: true
 ---
 
