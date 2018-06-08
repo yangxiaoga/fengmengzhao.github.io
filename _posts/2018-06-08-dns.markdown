@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 详解DNS
+title: 茶余饭后DNS
 subtitle: 什么是DNS，它是怎么工作的？
 background: '/img/posts/20180608-dns.jpg'
 comment: true
