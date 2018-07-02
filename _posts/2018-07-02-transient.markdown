@@ -9,114 +9,100 @@ comment: true
 ## 目录
 
 - [1. **简介**](#1)
-- [2. **功能**](#2)
-- [3. **transient如何使用**](#3)
-- [4. **总结**](#4)
+- [2. **如何使用**](#2)
 
 <h3 id="1">1. 简介</h3>
 
-DNS`(Domain Name System,域名系统)`，万维网上作为域名和IP地址映射的一个分布式数据库,为用户提供便捷的条件访问互联网，而不用记忆IP地址数串；DNS通过域名解析`(通过域名得到IP地址)`来做映射；域名是互联网上的身份标识，是不可重复的唯一标识资源，互联网的全球化使得域名成为标识一国主权的国家战略资源；DNS协议运行在UDP协议上，使用端口53；在RFC文档中RFC2181对DNS有规范说明，RFC2308对DNS查询的反向缓存进行说明。
+Java语言的关键字`变量修饰符`  
+如果用`transient`声明一个实例变量，当对象存储时，它的值不需要维持，也就是用transient标记的成员变量不参与序列化过程。   
+Java中对象的序列化指的是将对象转换成以字节序列的形式来表示，这些字节序列包含了对象的数据和信息，一个序列化的对象可以被写到数据库或文件中，也可用于网络传输。  
+一般我们使用缓存（内存空间不够有可能会本地存储到硬盘）或远程RPC(网络传输)的时候，经常需要让我们实体类实现`Serializable`接口,目的是为了让其可序列化。
 
 ---
 
-<h3 id="2">2. 功能</h3>
+<h3 id="2">2. 如何使用</h3>
 
-每个IP地址都可以有一个主机名，主机名有一个或多个字符串组成，字符串之间用小数点隔开。
-DNS协议的功能就是对主机名和设备的IP做一个映射
+Java的Serialization提供了一种持久化对象实例的机制。  
+当持久化对象时，可能有一个特殊的对象数据成员如：`密码`,`银行卡号`等，我们不想用`serialization`机制来保护它，
+为了在一个特定对象的一个域上关闭序列化，可以用`serialization`来标记 。 
 
-主机名到IP的映射方式：
-> 1. 静态映射  
-> 每台设备都配置主机到IP地址的映射，各设备独立维护自己的映射表
-> 2. 动态映射    
-> 建立一套域名解析系统，(DNS),只在专门的DNS服务器上配置主机到IP的映射，网络上需要使用主机名通信的设备，首先需要到
-> DNS服务器查询主机所对应的IP地址
+注意： transient关键字只能修饰变量，不能修饰方法和类，被transient关键字修饰的变量不再被序列化，一个静态变量不管是否被trnsient修饰，均不能被序列化 。 
 
-在解析域名时，可以首先采用静态域名解析的方法，吐过静态域名解析不成功，再采用动态域名解析方法
-可以将一些常用的域名放入静态域名解析表总，以提高域名解析效率
+	具体使用：
 
----
+	package com.wanghang.one;
+	import java.io.Serializable;
+ 
+	/**
+ 	* 序列化与非序列化
+ 	*
+ 	* @author Jak
+ 	* @version 1.0, 2018-07-01 01:30:12
+ 	*/
+	class Person implements Serializable {
+	
+	// UID
+	private static final long serialVersionUID = 42L;
+	
+	// 用transient修饰后name将不会进行序列化
+	private transient String name;
+	
+	public int age;
+ 
+	Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+ 
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", age=" + age + "]";
+	}
 
-<h3 id="3">3. DNS冗余</h3>
+利用ObjectInputStream 和ObjectOutputStream对对象进行读写
+保存对象到文件中（参数obj一定要实现Serializable接口）：
 
-为提高服务器的高可用性，DNS要求使用多态名称服务器器冗余支持每个区域。
+	public static void writeObjectToFile(Object obj)
+    {
+        File file =new File("test.dat");
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(file);
+            ObjectOutputStream objOut=new ObjectOutputStream(out);
+            objOut.writeObject(obj);
+            objOut.flush();
+            objOut.close();
+            System.out.println("write object success!");
+        } catch (IOException e) {
+            System.out.println("write object failed");
+            e.printStackTrace();
+        }
+    }
 
-某个区域的资源记录通过手动和自动方式更新到等那个主名称服务器**`称为主DNS服务器`**上，主DNS服务器可以是一个或几个区域的权威名称服务器。
+从文件中读取对象
 
-其他**冗余**名称服务器**`(称为辅DNS服务器)`**用作统一区域中主服务器的备份服务器，以防主服务器无法访问或宕机。
-
-辅DNS服务器定期与主DNS服务器通讯，确保它的区域信息保持更新。如果不是最新信息，辅DNS服务器就会从主服务器获取最新区域数据文件的副本。这种将区域文件复制到多台名称服务器的过程称为**区域复制**
-
----
-
-<h3 id="4">4. 域名结构</h3>
-
-通常Internet主机域名的一般结构为：   
-
->主机名.三级域名.二级域名.顶级域名
-
-**Intenet**的顶级域名是由**Internet网络协会域名注册查询负责网路地址分配的委员会**进行登记和管理，它还为Internet的每一台机器分配唯一的IP地址。
-
-全世界有三个大的网络信息中心：   
-1. 位于美国的 **`Inter-NIC`**，负责美国及其他地区   
-2. 位于荷兰的 **`RIPE-NIC`**，负责欧洲地区   
-3. 位于日本的 **`APNIC`**，负责亚太地区   
-
-
-
-`为了解决服务端要向客户端初始化数据连接的问题，被动模式应运而生。客户端可以通过`PASSIVE ON`告诉服务端使用的连接方式是被动模式。
-
-在被动模式中，命令端口和数据端口的初始化连接都是由客户端主动发起的，这样就解决了客户端防火墙可能过滤掉服务端数据端口发来的连接。当打开FTP连接时，客户端在本地启用了两个端口(N>1023和N+1)。第一个端口连向服务端命令端口`21`，然后向服务端发出`Pasv`命令而不是像主动模式那样发送`PORT N+1`，这个`PSAV`命令可以让服务端随机开启一个非预留端口(P>1023)并且将这个端口号返回给客户端回应`PASV`命令。客户端就可以从端口`N+1`向端口`P`进行初始化连接来传输数据。
-
-从服务端防火墙的角度，为了支持主动模式的FTP访问，如下策略是必须是打开的：
-
-- 客户单任意大于1023端口到FTP Server的21端口(客户端初始化连接)
-- FTP Server的21端口到客户端任意大于1023端口(服务回应客户端的命令端口)
-- 客户端任意大于1023端口到FTP Server的任意大于1023端口(客户端初始化数据连接到服务端的数据端口)
-- FTP Server的任意大于1023端口到客户端任意大于1023端口(服务端发送ACK(和数据)到服务数据端口)
-
-被动模式的网络图：
-
-![passiveftp](/img/posts/passiveftp.png)
-
-> 第一步：客户端连接服务端`21`并且发出`PASV`命令。<br><br>
-第二步：服务端开启2024端口并监听来自客户端的数据连接，同时回应第一步`PORT 2024`。<br><br>
-第三步：客户端从本地数据端口初始化数据连接到服务端指定数据端口2024。<br><br>
-第四部：服务端回应客户端`ACK`(和数据)。
-
-虽然被动模式解决了很多服务端的问题，但是服务端也产生了一些问题。最大的问题就是要求客户端能够连接到服务端任意大于1023的端口，不过幸运的是服务端的任意数据端口可以设定在一个范围内。
-
-**ftp服务配置`PASV`被动模式：**
-
-    pasv_enable=YES #passive模式开启
-    pasv_min_port=3000 #被动模式最小端口号(P>1023)
-    pasv_max_port=4000 #被动模式最大端口号(P>1023)
-    pasv_address=xxx.xxx.xxx.xxx #指定ftp服务的数据服务在一个远程机器
-    #port_enable=YES #active模式开启
-    #connect_from_port_20=YES #默认Active Mode情况下server端数据传输通过20端口
-
-> 注意：<br><br>
-- 如果被动模式端口范围最大最小设置为一个固定的值，这个固定端口处于监听状态时，新的客户端不能用被动模式连接到ftp服务，原因还没有弄清楚。如果把端口设置为一个区间，就不会出现此问题。
-- 当使用web浏览器或者Windows网络共享作为客户端访问FTP时，经常会输入`ftp://ip:port`，大部分浏览器只支持被动模式。<br><br>
-
----
-
-<h3 id="5">5. 总结</h3>
-
-主动与被动ftp工作连接方式：
-
-    Active FTP:
-        command: client >N   --> server 21
-        data   : client >N+1 <-- server 20 
-    Passive FTP:
-        command: client >N   --> server 21
-        data   : client >N+1 --> server P(P>1023)
-
-> 通俗的语言将主动模式与被动模式的区别：<br><br>
-主动模式：客户端对服务端说，我给你发一个端口，这个端口在我本地监听，我需要数据的时候会通过命令端口发送命令，然后你把数据**主动推送**到我这里！<br><br>
-被动模式：客户端对服务端说，我给你发一个`PASV`命令，这样我就约定好了用被动模式连接了，你启动一个监听端口吧，我需要数据的时候会去你那里取的，你需要**被动传**数据到我这里！
+	public static Object readObjectFromFile()
+    {
+        Object temp=null;
+        File file =new File("test.dat");
+        FileInputStream in;
+        try {
+            in = new FileInputStream(file);
+            ObjectInputStream objIn=new ObjectInputStream(in);
+            temp=objIn.readObject();
+            objIn.close();
+            System.out.println("read object success!");
+        } catch (IOException e) {
+            System.out.println("read object failed");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return temp;
+    }
 
 ---
 
 **Reference**
 
-- [http://slacksite.com/other/ftp.html](http://slacksite.com/other/ftp.html)
+- [transient解析](https://stackoverflow.com/questions/5245600/what-does-the-keyword-transient-mean-in-java)
