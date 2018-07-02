@@ -28,7 +28,8 @@ Java的Serialization提供了一种持久化对象实例的机制。
 
 注意： transient关键字只能修饰变量，不能修饰方法和类，被transient关键字修饰的变量不再被序列化，一个静态变量不管是否被trnsient修饰，均不能被序列化 。 
 
-	具体使用：
+具体使用：    
+
 	package com.wanghang.one;
 	import java.io.Serializable;
  
@@ -39,7 +40,7 @@ Java的Serialization提供了一种持久化对象实例的机制。
 	*/
 	class Person implements Serializable {
 	
-	    // UID
+		// UID
 	    private static final long serialVersionUID = 42L;
 	    // 用transient修饰后name将不会进行序列化
 	    private transient String name;
