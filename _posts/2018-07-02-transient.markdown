@@ -41,24 +41,24 @@ Java的Serialization提供了一种持久化对象实例的机制。
  	*/
 	class Person implements Serializable {
 	
-	// UID
-	private static final long serialVersionUID = 42L;
+	    // UID
+	    private static final long serialVersionUID = 42L;
 	
-	// 用transient修饰后name将不会进行序列化
-	private transient String name;
+	    // 用transient修饰后name将不会进行序列化
+	    private transient String name;
 	
-	public int age;
+	    public int age;
  
-	Person(String name, int age) {
-		this.name = name;
-		this.age = age;
-	}
+	    Person(String name, int age) {
+		    this.name = name;
+		    this.age = age;
+	    }
  
-	@Override
-	public String toString() {
-		return "Person [name=" + name + ", age=" + age + "]";
-	}
-
+	    @Override
+	    public String toString() {
+		    return "Person [name=" + name + ", age=" + age + "]";
+	    }
+    }
 利用ObjectInputStream 和ObjectOutputStream对对象进行读写
 保存对象到文件中（参数obj一定要实现Serializable接口）：
 
