@@ -9,96 +9,59 @@ comment: true
 ## 目录
 
 - [1. **简介**](#1)
-- [2. **如何使用**](#2)
+- [2. **为什么选择外汇**](#2)
 
 <h3 id="1">1. 简介</h3>
 
-Java语言的关键字`变量修饰符`  
-如果用`transient`声明一个实例变量，当对象存储时，它的值不需要维持，也就是用transient标记的成员变量不参与序列化过程。   
-Java中对象的序列化指的是将对象转换成以字节序列的形式来表示，这些字节序列包含了对象的数据和信息，一个序列化的对象可以被写到数据库或文件中，也可用于网络传输。  
-一般我们使用缓存（内存空间不够有可能会本地存储到硬盘）或远程RPC(网络传输)的时候，经常需要让我们实体类实现`Serializable`接口,目的是为了让其可序列化。
+***外汇:简称Forex/FX***   
+外汇是指以外国货币表示的可以用于国际结算的各种支付手段。通俗的说，就是英镑、美元、欧元、日元、加元、澳元、港元等外币。     
+
+具体我们重点关注下以下的介绍
+
+***什么是外汇投资？***   
+外汇交易或者外汇交易市场，是世界上最大的金融市场，外汇市场在全球经济发展中，发挥着重要的作用，每天有数万亿美元的货币被交易，货币交易对于国际商业运行非常重要。   
+外汇市场是进行外汇交易的场所，外汇市场的参与者包括`政府`、`商业`和`投资者` 
+
+---
+  
+***政府***利用外汇市场来实行其政策，例如，当某国与另一国进行商业活动时，不论是借贷或提供救助，该国都需要将其本币兑换成另一个国家的货币。 
+  
+***商业***通过外汇市场来进行国际贸易，商业需要通过外汇市场，将其对于商品、服务或海外贸易的支出形式转换成其国际客户所需要的货币；
+
+***高级交易者***，则利用外汇市场中汇率和货币价格的变化，来进行投资。
+   
+---
+
+货币价格在每周交易日会经常发生变化，因为外汇市场是除周末外`24小时`的交易市场。在周内，外汇市场连续一整天的开放。   
+由于全球经济因素的影响，投资者可以通过买入货币，待其价格上涨而获利，投资者也可因货币价格的下跌，而卖出或做空某一货币，两种货币组成货币对，意味组成货币对的两种货币间的价格是相对的，货币对中两种货币不同的属性，开始可能容易让人混淆，但实际上很简单，我们以进行欧元/美元进行举例。虽然这一交易中涉及两种货币，但货币对本身可以看成是一个独立的交易实体，与股票和大宗商品类似   
+假如某投资者认为，欧洲的经济发展要好于美国，因此，他认为欧元兑美元将会走强。那么，他可以买入`欧元/美元`货币对，如果货币价格上涨，她将获利，相反，如果价格下跌，她将遭受损失   
+
+投资者可以通过使用`保证金`买入或卖出货币对，使用保证金买入或卖出货币，与买入卖出股票不同，保证金是为了购买证券，而向保证金账户借来的钱，投资者所需要的保证金，会根据货币对及交易规模的不同而不同。   
+货币对交易中一般会使用特殊的数量计量，我们称之为`手数`，手数的种类有很多种，最常见的是`标准手`和`迷你手`，迷你手所需要的保证金大约为100美金，标准手所需要的保证金大约为1000美金，这些保证金看起来只是很少一部分资金   
 
 ---
 
-<h3 id="2">2. 如何使用</h3>
+但是重要的是手数具有很高的`杠杆`,杠杆指的是使用很小一部分钱，来控制数量较大的货币交易，很多交易者会使用杠杆，来买入或卖出货币对，实际上，杠杆是外汇市场上重要的特征之一，将杠杆和货币对交易想结合，是外汇交易中最大的好处之一，但也存在很大的风险，杠杆能够让投资者有较大的获利空间的同时，也可能会让投资者遭受很大的损失，因为使用杠杆的投资，所导致的损失会成倍的增长，甚至会脱离我们的掌控。   
+***如果投资者管理风险和限制杠杆，他们可能会尝到外汇投资的好处，这些好处包括每天24小时的交易，和掌握不同市场的发展趋势，这些好处包括每天24小时的交易，和掌握不同市场的发展趋势*** 
 
-Java的Serialization提供了一种持久化对象实例的机制。  
-当持久化对象时，可能有一个特殊的对象数据成员如：`密码`,`银行卡号`等，我们不想用`serialization`机制来保护它，
-为了在一个特定对象的一个域上关闭序列化，可以用`serialization`来标记 。 
 
-注意： transient关键字只能修饰变量，不能修饰方法和类，被transient关键字修饰的变量不再被序列化，一个静态变量不管是否被trnsient修饰，均不能被序列化 。 
+正如之前提到的，外汇市场是目前为止，全球最大的交易金融市场，每天交易额为数万亿美元，外汇市场的规模，意味着它能够影响其他资本市场，如`股票`、`国债`和`大宗商品`。举例来说，如果美元走低，可能影响大宗商品，因为它们是以美元计价的。进而会导致商品成品和通胀的上升。结果利率可能会提升，而导致国债下跌，这些都会影响到`股票市场`。   
 
-具体使用：    
+正如所看到的，外汇市场的一个变化，可能会对其他数个市场产生涟漪反应。这仅仅是外汇市场如何影响其他资本市场的一个例子。
+   
+因为外汇市场是全球最大的金融市场，也是其他资本市场运作的基础，***外汇市场广泛的影响力，可能会吸引大量对全球经济感兴趣的投资者，这些投资者向了解更多关于其他国家及货币间，如何相互影响和运作及全球经济是如何运行的***。而对于全球市场关联性不太感兴趣的投资者则可能更倾向于投资外汇市场中风险较小的投资方式，例如`货币交易基金`或`ETF`,这些基金是货币投资中风险较小的投资方式，同时也是增加投资者投资组合多样性的有效途径，但不论你对于外汇市场货购买货币ETF是否感兴趣，***在进行交易之前学习更多的投资知识是非常必要的***
 
-	package com.wanghang.one;
-	import java.io.Serializable;
- 
-	/**
-	* 序列化与非序列化
-	* @author Jak
-	* @version 1.0, 2018-07-01 01:30:12
-	*/
-	class Person implements Serializable {
-	
-		// UID
-	    private static final long serialVersionUID = 42L;
-	    // 用transient修饰后name将不会进行序列化
-	    private transient String name;
-	    public int age;
-	    Person(String name, int age) {
-		    this.name = name;
-		    this.age = age;
-	    }
-	    @Override
-	    public String toString() {
-		    return "Person [name=" + name + ", age=" + age + "]";
-	    }
-    }    
+---
 
-利用ObjectInputStream 和ObjectOutputStream对对象进行读写
-保存对象到文件中（参数obj一定要实现Serializable接口）：
+<h3 id="2">2. 为什么选择外汇</h3>
 
-	public static void writeObjectToFile(Object obj)
-    {
-        File file =new File("test.dat");
-        FileOutputStream out;
-        try {
-            out = new FileOutputStream(file);
-            ObjectOutputStream objOut=new ObjectOutputStream(out);
-            objOut.writeObject(obj);
-            objOut.flush();
-            objOut.close();
-            System.out.println("write object success!");
-        } catch (IOException e) {
-            System.out.println("write object failed");
-            e.printStackTrace();
-        }
-    }    
+汇市可以说是全球最干净的投机市场：投资者不用劳神于每只股票的业绩，不用担心期货多空双方的内幕交易，美日巨额的成交量，使任何机构也没有坐庄的勇气。   
 
-从文件中读取对象
-
-	public static Object readObjectFromFile()
-    {
-        Object temp=null;
-        File file =new File("test.dat");
-        FileInputStream in;
-        try {
-            in = new FileInputStream(file);
-            ObjectInputStream objIn=new ObjectInputStream(in);
-            temp=objIn.readObject();
-            objIn.close();
-            System.out.println("read object success!");
-        } catch (IOException e) {
-            System.out.println("read object failed");
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return temp;
-    }
+截止到目前，外汇市场的交易量已经高达每天***6万亿美金***，索罗斯，巴菲特所能了解到的信息，普通投资者一样可以了解到，全球的投资者和投机人都在相同的时间看着相同的报价和价格图形，***数十家网络交易平台和几千家做市商将全球几千万投资者和投机人连接在一起***，最重要的是能够赚钱是由自己的本事决定的。  
+![Forex](/img/posts/20180716-simple-background.jpg "Forex")
 
 ---
 
 **Reference**
 
-- [transient解析](https://stackoverflow.com/questions/5245600/what-does-the-keyword-transient-mean-in-java)
+- [外汇知识篇](https://mp.weixin.qq.com/s/WrD760E9nRM-dtV5N0mw8A)
