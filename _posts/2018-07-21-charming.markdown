@@ -2,7 +2,7 @@
 layout: post
 title: trading
 subtitle: 极具魅力的交易-做多与做空      
-background: '/img/posts/20180721-charming.jpg'
+background: '/img/posts/20180721-charm.jpg'
 comment: true
 ---
 
@@ -112,4 +112,4 @@ comment: true
 
 **Reference**
 
-- [buy/sell](https://yangxiaoga.github.io/2018/07/21/lever.html)
+- [buy/sell](https://yangxiaoga.github.io/2018/07/21/charming.html)
