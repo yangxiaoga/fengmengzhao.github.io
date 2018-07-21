@@ -81,4 +81,4 @@ comment: true
 
 **Reference**
 
-- [最好的礼物](https://yangxiaoga.github.io/2018/07/21/usdx.html)
+- [美元指数](https://yangxiaoga.github.io/2018/07/21/usdx.html)
