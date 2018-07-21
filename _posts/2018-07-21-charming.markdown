@@ -1,6 +1,6 @@
 ---
 layout: post
-title: the charming trading
+title: trading
 subtitle: 极具魅力的交易-做多与做空      
 background: '/img/posts/20180721-lever.jpg'
 comment: true
