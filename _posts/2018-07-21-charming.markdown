@@ -2,7 +2,7 @@
 layout: post
 title: trading
 subtitle: 极具魅力的交易-做多与做空      
-background: '/img/posts/20180721-lever.jpg'
+background: '/img/posts/20180721-charming.jpg'
 comment: true
 ---
 
@@ -106,7 +106,7 @@ comment: true
 	10000 USD/100 = 100美元   
 
 
-在每次下单前，我们都要考虑自己面临的风险和报酬，依据自身策略设置止损，本地的分享就到这里，下次内容为隔夜利息和套利交易，朋友们再会。
+在每次下单前，我们都要考虑自己面临的风险和报酬，依据自身策略设置止损，本次的分享就到这里，下次内容为隔夜利息和套利交易，朋友们再会。
 
 --- 
 
